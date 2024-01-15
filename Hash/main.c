@@ -50,10 +50,11 @@ int Delete(int dizi[], int veri) {
 }
 
 int main() {
+    
+    int answer;
 
     do{
         printf("1-Insert\n2-Search\n3-Delete\n4-Print\n5-Exit\n");
-        int answer;
         scanf("%d", &answer);
         switch (answer) {
             case 1:

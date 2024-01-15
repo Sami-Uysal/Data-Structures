@@ -20,7 +20,7 @@ int addNodePosition(int data) {
     if(position==1){
         ptr->next = head;
         head = ptr;
-        return;
+        return 0;
     }
 
     for(int i=1; i<position-1; i++){
