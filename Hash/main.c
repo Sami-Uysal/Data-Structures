@@ -5,7 +5,6 @@
 int A[SIZE];
 
 int HashFunction(int key) {
-    // gelen key değerinden index üretecek
     return key % SIZE;
 }
 
@@ -14,26 +13,24 @@ int Search(int dizi[], int veri) {
 
     while (dizi[index] != 0) {
         if (dizi[index] == veri) {
-            return 1; // Veri bulundu
+            return 1;
         }
 
-        // Linear Probing: Bir sonraki boş yere geç
         index = (index + 1) % SIZE;
     }
 
-    return 0; // Veri bulunamadı
+    return 0;
 }
 
 int Insert(int dizi[], int veri) {
     int index = HashFunction(veri);
 
     while (dizi[index] != 0) {
-        // Linear Probing: Bir sonraki boş yere geç
         index = (index + 1) % SIZE;
     }
 
     dizi[index] = veri;
-    return 1; // Ekleme başarılı
+    return 1;
 }
 
 int Delete(int dizi[], int veri) {
@@ -41,37 +38,54 @@ int Delete(int dizi[], int veri) {
 
     while (dizi[index] != 0) {
         if (dizi[index] == veri) {
-            dizi[index] = -1; // -1, silinmiş bir elemanı temsil eder
-            return 1; // Silme başarılı
+            dizi[index] = -1;
+            return 1;
         }
 
-        // Linear Probing: Bir sonraki boş yere geç
+
         index = (index + 1) % SIZE;
     }
 
-    return 0; // Silinen veri bulunamadı
+    return 0;
 }
 
 int main() {
-    // Hash tablosunu sıfırla
-    for (int i = 0; i < SIZE; ++i) {
-        A[i] = 0;
-    }
 
-    // Verileri ekle
-    Insert(A, 25);
-    Insert(A, 35);
-    Insert(A, 45);
-
-    // Verileri ara
-    printf("Search(25): %s\n", Search(A, 25) ? "Bulundu" : "Bulunamadı");
-    printf("Search(30): %s\n", Search(A, 30) ? "Bulundu" : "Bulunamadı");
-
-    // Veriyi sil
-    printf("Delete(35): %s\n", Delete(A, 35) ? "Silindi" : "Silinecek veri bulunamadı");
-
-    // Silinen veriyi ara
-    printf("Search(35): %s\n", Search(A, 35) ? "Bulundu" : "Bulunamadı");
+    do{
+        printf("1-Insert\n2-Search\n3-Delete\n4-Print\n5-Exit\n");
+        int answer;
+        scanf("%d", &answer);
+        switch (answer) {
+            case 1:
+                printf("Enter a number to insert: ");
+                int number;
+                scanf("%d", &number);
+                Insert(A, number);
+                break;
+            case 2:
+                printf("Enter a number to search: ");
+                int searchNumber;
+                scanf("%d", &searchNumber);
+                Search(A, searchNumber) == 1 ? printf("Found\n") : printf("Not Found\n");
+                break;
+            case 3:
+                printf("Enter a number to delete: ");
+                int deleteNumber;
+                scanf("%d", &deleteNumber);
+                Delete(A, deleteNumber) == 1 ? printf("Deleted\n") : printf("Not Found\n");
+                break;
+            case 4:
+                for (int i = 0; i < SIZE; ++i) {
+                    printf("%d ", A[i]);
+                }
+                printf("\n");
+                break;
+            case 5:
+                break;
+            default:
+                printf("Invalid choice\n");
+        }
+    }while(answer != 5);
 
     return 0;
 }
